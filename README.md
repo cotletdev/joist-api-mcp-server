@@ -8,13 +8,13 @@ Joist has no public API, no webhooks and no official MCP server. Its only link o
 
 - **MCP server** for Claude Code, Claude Desktop, Cursor, Codex and any MCP client, over stdio or HTTP. [Setup](#mcp-server)
 - **REST API** on `http://127.0.0.1:8787/api/v1/joist`, with OpenAPI docs at `/docs`. [Setup](#rest-api)
-- **Python**: `call("list_invoices", view="overdue")`, plus 9 ready scripts in [`examples/`](examples/).
+- **Python**: `call("list_invoices", view="overdue")`, plus 9 ready scripts in [`examples/`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/).
 
 It is for technical people who want to run it themselves, **for noncommercial use only** ([license](#license)). If you want it running 24/7 on a server, kept working when Joist changes its web app, for a team or a business, use the [hosted version at cotlet.dev](https://cotlet.dev/integrations/joist-api-mcp-server).
 
 [![Joist MCP server](https://img.shields.io/badge/Joist%20MCP-20%20tools-6d4aef)](#all-20-tools)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-141318)](#requirements)
-[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial-141318)](LICENSE)
+[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial-141318)](https://github.com/cotletdev/joist-api-mcp-server/blob/main/LICENSE)
 
 ```bash
 uv tool install joist-api-mcp                  # or: pip install joist-api-mcp
@@ -85,7 +85,7 @@ joist-mcp --version
 
 With [uv](https://docs.astral.sh/uv/): `uv venv && uv pip install -e .`, then `uv run joist-mcp ...`.
 
-Setting it up with an AI agent (Claude Code, Codex, Cursor)? Open it in this folder and ask it to set up the repo: [`AGENTS.md`](AGENTS.md) tells it every step, and it asks you only for the steps in Chrome.
+Setting it up with an AI agent (Claude Code, Codex, Cursor)? Open it in this folder and ask it to set up the repo: [`AGENTS.md`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/AGENTS.md) tells it every step, and it asks you only for the steps in Chrome.
 
 To update: `uv tool upgrade joist-api-mcp` (or `pip install -U joist-api-mcp`), from source `git pull && pip install -e .`. We copy every change of the hosted Joist tools into this repo.
 
@@ -176,7 +176,7 @@ claude mcp add joist -- uvx joist-api-mcp mcp --read-only
 
 ### Cursor
 
-`~/.cursor/mcp.json`, the same block as Claude Desktop. A ready copy is in [`mcp.json`](mcp.json).
+`~/.cursor/mcp.json`, the same block as Claude Desktop. A ready copy is in [`mcp.json`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/mcp.json).
 
 ### Codex
 
@@ -257,19 +257,19 @@ call("create_estimate", client_id=client["client_id"], line_items=[{"name": "Dec
 
 Or one tool from the shell: `joist-mcp call list_estimates approval=pending`, or with a JSON object.
 
-Ready scripts in [`examples/`](examples/). Each prints JSON, takes `--out file.csv` or `--out file.json` where it makes sense, and `--help`. The ones that write show what they would do first:
+Ready scripts in [`examples/`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/). Each prints JSON, takes `--out file.csv` or `--out file.json` where it makes sense, and `--help`. The ones that write show what they would do first:
 
 | Script | What it does |
 |---|---|
-| [`export_clients.py`](examples/export_clients.py) | Clients to CSV or JSON: name, email, phone, address, notes, last payment. `--search`. |
-| [`estimate_from_job.py`](examples/estimate_from_job.py) | An estimate from a job description: finds the client by name or adds it, lines as `name:quantity:rate`, saved items matched by name. `--dry-run`. |
-| [`list_estimates.py`](examples/list_estimates.py) | Estimates by approval: pending, approved, declined or all. |
-| [`invoice_approved_estimates.py`](examples/invoice_approved_estimates.py) | Approved estimates without an invoice. `--convert` makes the invoices, `--send` emails them. |
-| [`record_payment.py`](examples/record_payment.py) | A check, cash, card or bank transfer payment on an invoice found by its number. |
-| [`overdue_invoices.py`](examples/overdue_invoices.py) | Overdue invoices with balance due, oldest first. |
-| [`remind_overdue.py`](examples/remind_overdue.py) | Lists overdue invoices; `--send` emails each one again with your message. `--days`. |
-| [`export_month.py`](examples/export_month.py) | Joist's monthly invoice or estimate CSV, the file for your accountant. |
-| [`monthly_report.py`](examples/monthly_report.py) | Revenue, invoices, estimates or sales tax for one month, with the total. |
+| [`export_clients.py`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/export_clients.py) | Clients to CSV or JSON: name, email, phone, address, notes, last payment. `--search`. |
+| [`estimate_from_job.py`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/estimate_from_job.py) | An estimate from a job description: finds the client by name or adds it, lines as `name:quantity:rate`, saved items matched by name. `--dry-run`. |
+| [`list_estimates.py`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/list_estimates.py) | Estimates by approval: pending, approved, declined or all. |
+| [`invoice_approved_estimates.py`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/invoice_approved_estimates.py) | Approved estimates without an invoice. `--convert` makes the invoices, `--send` emails them. |
+| [`record_payment.py`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/record_payment.py) | A check, cash, card or bank transfer payment on an invoice found by its number. |
+| [`overdue_invoices.py`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/overdue_invoices.py) | Overdue invoices with balance due, oldest first. |
+| [`remind_overdue.py`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/remind_overdue.py) | Lists overdue invoices; `--send` emails each one again with your message. `--days`. |
+| [`export_month.py`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/export_month.py) | Joist's monthly invoice or estimate CSV, the file for your accountant. |
+| [`monthly_report.py`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/monthly_report.py) | Revenue, invoices, estimates or sales tax for one month, with the total. |
 
 ```bash
 python examples/overdue_invoices.py --out overdue.csv
@@ -422,7 +422,7 @@ No. The source is public, but the license allows noncommercial use only: no busi
 
 ## License
 
-[PolyForm Noncommercial License 1.0.0](LICENSE). In short:
+[PolyForm Noncommercial License 1.0.0](https://github.com/cotletdev/joist-api-mcp-server/blob/main/LICENSE). In short:
 
 - **Allowed:** noncommercial use: you, for your own personal purposes with your own Joist account, or a charity, school, public research or government body. Changing the code, and sharing it under the same license.
 - **Not allowed:** any commercial use, your own business included; client work; selling or offering it, or a service built on it.
@@ -433,7 +433,7 @@ No. The source is public, but the license allows noncommercial use only: no busi
   <a href="https://cotlet.dev">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="assets/logo-white.svg">
-      <img src="assets/logo.svg" alt="Cotlet" width="120">
+      <img src="https://raw.githubusercontent.com/cotletdev/joist-api-mcp-server/main/assets/logo.svg" alt="Cotlet" width="120">
     </picture>
   </a>
 </p>
