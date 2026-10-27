@@ -340,7 +340,7 @@ wheels = [
 
 [[package]]
 name = "joist-api-mcp"
-version = "1.0.1"
+version = "1.0.2"
 source = { editable = "." }
 dependencies = [
     { name = "curl-cffi" },
