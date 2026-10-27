@@ -17,11 +17,10 @@ It is for technical people who want to run it themselves, **for noncommercial us
 [![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial-141318)](LICENSE)
 
 ```bash
-git clone https://github.com/cotletdev/joist-api-mcp-server.git && cd joist-api-mcp-server
-python3 -m venv .venv && . .venv/bin/activate && pip install -e .
+uv tool install joist-api-mcp                  # or: pip install joist-api-mcp
 joist-mcp connect                                  # reads your Joist session from Chrome
 joist-mcp call list_invoices view=overdue
-claude mcp add joist -- "$PWD/.venv/bin/joist-mcp" mcp
+claude mcp add joist -- uvx joist-api-mcp mcp
 ```
 
 ## Contents
@@ -64,6 +63,17 @@ Dates such as "today" and an estimate's last valid day follow the time zone of t
 
 ## Install
 
+From [PyPI](https://pypi.org/project/joist-api-mcp/):
+
+```bash
+uv tool install joist-api-mcp       # or: pipx install joist-api-mcp, or: pip install joist-api-mcp
+joist-mcp --version
+```
+
+MCP clients can also run it with no install: `uvx joist-api-mcp mcp`.
+
+From source:
+
 ```bash
 git clone https://github.com/cotletdev/joist-api-mcp-server.git
 cd joist-api-mcp-server
@@ -77,7 +87,7 @@ With [uv](https://docs.astral.sh/uv/): `uv venv && uv pip install -e .`, then `u
 
 Setting it up with an AI agent (Claude Code, Codex, Cursor)? Open it in this folder and ask it to set up the repo: [`AGENTS.md`](AGENTS.md) tells it every step, and it asks you only for the steps in Chrome.
 
-To update: `git pull && pip install -e .`. We copy every change of the hosted Joist tools into this repo.
+To update: `uv tool upgrade joist-api-mcp` (or `pip install -U joist-api-mcp`), from source `git pull && pip install -e .`. We copy every change of the hosted Joist tools into this repo.
 
 ## Connect your Chrome
 
@@ -144,9 +154,9 @@ The MCP server lists every tool with its input schema, a description written for
 ### Claude Code
 
 ```bash
-claude mcp add joist -- /path/to/joist-api-mcp-server/.venv/bin/joist-mcp mcp
+claude mcp add joist -- uvx joist-api-mcp mcp
 # read only:
-claude mcp add joist -- /path/to/joist-api-mcp-server/.venv/bin/joist-mcp mcp --read-only
+claude mcp add joist -- uvx joist-api-mcp mcp --read-only
 ```
 
 ### Claude Desktop
@@ -157,8 +167,8 @@ claude mcp add joist -- /path/to/joist-api-mcp-server/.venv/bin/joist-mcp mcp --
 {
   "mcpServers": {
     "joist": {
-      "command": "/path/to/joist-api-mcp-server/.venv/bin/joist-mcp",
-      "args": ["mcp"]
+      "command": "uvx",
+      "args": ["joist-api-mcp", "mcp"]
     }
   }
 }
@@ -174,8 +184,8 @@ claude mcp add joist -- /path/to/joist-api-mcp-server/.venv/bin/joist-mcp mcp --
 
 ```toml
 [mcp_servers.joist]
-command = "/path/to/joist-api-mcp-server/.venv/bin/joist-mcp"
-args = ["mcp"]
+command = "uvx"
+args = ["joist-api-mcp", "mcp"]
 ```
 
 ### Over HTTP

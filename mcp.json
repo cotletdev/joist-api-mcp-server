@@ -1,8 +1,11 @@
 {
   "mcpServers": {
     "joist": {
-      "command": "/path/to/joist-api-mcp-server/.venv/bin/joist-mcp",
-      "args": ["mcp"]
+      "command": "uvx",
+      "args": [
+        "joist-api-mcp",
+        "mcp"
+      ]
     }
   }
 }
