@@ -1,8 +1,38 @@
-# Joist API and MCP server, self-hosted
+# Joist API and MCP server: connect Joist to ChatGPT and Claude
 
 <!-- mcp-name: dev.cotlet/joist -->
 
-A **Joist API** and a **Joist MCP server** you run on your own computer, in Python, on the session of your own Google Chrome. All 20 Joist tools we run in production at [Cotlet](https://cotlet.dev/integrations/joist-api-mcp-server): clients, saved items and tax rates, estimates, invoices from estimates, estimate and invoice email, recorded payments, the monthly CSV export and the Reports page.
+**Yes, ChatGPT, Claude and other AI agents can work in your Joist account.** That includes Cursor, Codex, OpenClaw and any MCP client, plus automations in n8n, Make and Zapier. Ask in plain words, and the AI creates customers, writes estimates, turns them into invoices, records payments and lists what is unpaid. It shows you what it will do first and sends nothing to other people until you say so.
+
+This repo is the missing piece: 20 Joist tools for AI assistants and scripts.
+
+## What you can ask
+
+> *Write an estimate for Maple Street Dental: 120 sq ft of drywall repair at $4.50 and two coats of paint for $380, 7.25% tax, valid 30 days.*
+>
+> *Which approved estimates have no invoice yet? Generate the invoices and show me before you send any.*
+>
+> *Record the $390.93 check from Maple Street Dental on invoice 1042, dated yesterday.*
+>
+> *List overdue invoices, oldest first, and draft a short reminder for each.*
+>
+> *What did I take in last month, and how much sales tax did I collect?*
+
+## Two ways to get it
+
+| | [Ready to use, at Cotlet](https://cotlet.dev/integrations/joist-api-mcp-server?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=two-ways) | Run it yourself, this repo |
+|---|---|---|
+| For | contractors and trades business owners | developers |
+| Setup | sign in to Joist once, about 5 minutes, nothing to install | Python and a terminal |
+| Works in | ChatGPT and Claude apps, on your phone too, Cursor, Codex, OpenClaw, any MCP client, n8n, Make, Zapier, REST API | Claude Code, Claude Desktop, Cursor, Codex on your computer |
+| Runs | 24/7, your computer can be off | while your computer is on |
+| Price | 7 days free, no card | free |
+
+**[Start free at cotlet.dev →](https://cotlet.dev/signup?app=joist&utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=top-button)**
+
+## Run it yourself
+
+A **Joist API** and a **Joist MCP server** you run on your own computer, in Python, on the session of your own Google Chrome. All 20 Joist tools we run in production at [Cotlet](https://cotlet.dev/integrations/joist-api-mcp-server?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=intro): clients, saved items and tax rates, estimates, invoices from estimates, estimate and invoice email, recorded payments, the monthly CSV export and the Reports page.
 
 Joist has no public API, no webhooks and no official MCP server. Its only link out is QuickBooks Sync on Joist Pro, which copies estimates and invoices one way, once a night, without payments. This repo gives you:
 
@@ -10,11 +40,11 @@ Joist has no public API, no webhooks and no official MCP server. Its only link o
 - **REST API** on `http://127.0.0.1:8787/api/v1/joist`, with OpenAPI docs at `/docs`. [Setup](#rest-api)
 - **Python**: `call("list_invoices", view="overdue")`, plus 9 ready scripts in [`examples/`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/).
 
-It is for technical people who want to run it themselves, **for noncommercial use only** ([license](#license)). If you want it running 24/7 on a server, kept working when Joist changes its web app, for a team or a business, use the [hosted version at cotlet.dev](https://cotlet.dev/integrations/joist-api-mcp-server).
+Free for your own use, your own business included ([license](#license)).
 
 [![Joist MCP server](https://img.shields.io/badge/Joist%20MCP-20%20tools-6d4aef)](#all-20-tools)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-141318)](#requirements)
-[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial-141318)](https://github.com/cotletdev/joist-api-mcp-server/blob/main/LICENSE)
+[![License: Elastic 2.0](https://img.shields.io/badge/license-Elastic%202.0-141318)](https://github.com/cotletdev/joist-api-mcp-server/blob/main/LICENSE)
 
 ```bash
 uv tool install joist-api-mcp                  # or: pip install joist-api-mcp
@@ -25,6 +55,7 @@ claude mcp add joist -- uvx joist-api-mcp mcp
 
 ## Contents
 
+- [Questions from Joist users](#questions-from-joist-users)
 - [How it works](#how-it-works)
 - [Requirements](#requirements)
 - [Install](#install)
@@ -39,6 +70,41 @@ claude mcp add joist -- uvx joist-api-mcp mcp
 - [Self-hosted or hosted](#self-hosted-or-hosted)
 - [FAQ](#faq)
 - [License](#license)
+
+## Questions from Joist users
+
+**Does Joist have an API?**
+No. Joist publishes no API, developer docs or webhooks (checked 26 Oct 2026). QuickBooks Sync on Joist Pro copies issued estimates and invoices to QuickBooks Online once a night, one way and without payments, and the web app exports a monthly CSV without line items. This repo and [Cotlet](https://cotlet.dev/integrations/joist-api-mcp-server?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=faq-api) give you 20 Joist tools as a REST API and an MCP server.
+
+**Can I get a Joist API key?**
+Not from Joist for your own account. With Cotlet you get your own API key that works with your Joist account, for scripts, n8n, Make, Zapier or any HTTP client. This repo needs no key: it runs on your computer, on your own Joist session.
+
+**Is there an official ChatGPT integration for Joist?**
+No. Joist has no official ChatGPT or Claude connector. Cotlet is an unofficial one that works today, in the ChatGPT and Claude apps and in any AI agent that takes an MCP server.
+
+**How do I connect Joist to ChatGPT?**
+Sign up at [cotlet.dev](https://cotlet.dev/signup?app=joist&utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=faq-chatgpt), sign in to Joist once in your Cloud Browser there, and add Cotlet to ChatGPT, following the steps in your account. Then ask ChatGPT about your Joist like you would ask an assistant. ChatGPT needs a server on the internet, so this repo alone, running on your computer, does not connect to ChatGPT.
+
+**Can ChatGPT create estimates and invoices in Joist?**
+Yes, with Cotlet. Give it your notes, and it writes the estimate with line items, turns an approved estimate into an invoice and records the payment. It sends nothing to your client without your OK.
+
+**Can I automate Joist with Zapier, Make or n8n?**
+Joist has no Zapier or Make app. With Cotlet, n8n, Make and Zapier can create clients, estimates and invoices in Joist, for example from a web form or an email.
+
+**Can I use it from my phone?**
+Yes, with Cotlet: once it is set up, the ChatGPT and Claude apps on your phone can use Joist for you.
+
+**Do I need to be technical?**
+For Cotlet, no: you sign in to Joist and add Cotlet to ChatGPT or Claude, with step-by-step instructions in your account. This repo is for people who are fine with Python and a terminal.
+
+**Is my Joist account safe?**
+Yes. Neither Cotlet nor this repo sees or stores your Joist password. You sign in yourself, the way you always do, and the AI works on that signed-in session. Anything that reaches other people asks for your OK first: in Cotlet by default, here through your MCP client.
+
+**Is it free?**
+This repo is free, also in your own business. Cotlet is free for 7 days with no card, then one-time credit packs from $29, no subscription. [Pricing](https://cotlet.dev/pricing?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=faq-price).
+
+**I manage Joist for several accounts or clients. Does that work?**
+Yes, with Cotlet. Each Joist login gets its own connection. Write to [contact@cotlet.dev](mailto:contact@cotlet.dev) and tell us how many accounts you manage.
 
 ## How it works
 
@@ -369,7 +435,7 @@ The REST API answers `{"error": "<code>", "message": "..."}`. The MCP server ret
 
 ## Self-hosted or hosted
 
-| | This repo | [Cotlet, hosted](https://cotlet.dev/integrations/joist-api-mcp-server) |
+| | This repo | [Cotlet, hosted](https://cotlet.dev/integrations/joist-api-mcp-server?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=compare) |
 |---|---|---|
 | Tools | the same 20 | the same 20 |
 | Runs | on your computer, while it is on | in the cloud, 24/7 |
@@ -377,15 +443,12 @@ The REST API answers `{"error": "<code>", "message": "..."}`. The MCP server ret
 | When Joist changes its web app | `git pull` once we have fixed it | fixed for you, every tool tested daily |
 | Approvals | your MCP client asks per call | estimate and invoice email and recorded payments wait for your OK, switchable per tool |
 | Works with | MCP clients on your machine, local scripts | Claude.ai and ChatGPT connectors, n8n, Make, Zapier, any HTTP client |
-| Who may use it | you, for noncommercial use | teams, businesses, agencies |
+| Who may use it | you and your own business | you, teams, businesses, agencies |
 | Price | free | free 7-day trial with 2,000 credits, no card; then one-time packs from $29 for 5,000 credits |
 
 On the hosted version a successful call uses 10 credits, failed calls are free, and the Cloud Browser uses 50 credits a day while it has an app enabled for agents. [Full pricing](https://cotlet.dev/pricing).
 
 ## FAQ
-
-**Does Joist have an official API?**
-No. Joist publishes no API, developer docs or webhooks (checked 26 Oct 2026). QuickBooks Sync on Joist Pro copies issued estimates and invoices to QuickBooks Online once a night, one way and without payments, and the web app exports a monthly CSV without line items. Details: [cotlet.dev/integrations/joist-api-mcp-server](https://cotlet.dev/integrations/joist-api-mcp-server).
 
 **Is there a Joist MCP server for Claude, ChatGPT or Cursor?**
 Yes, this one runs on your machine: `joist-mcp mcp` for Claude Code, Claude Desktop, Cursor and Codex. ChatGPT and Claude.ai connectors need a public HTTPS URL, which the [hosted Joist MCP server](https://cotlet.dev/integrations/joist-api-mcp-server) gives you.
@@ -411,21 +474,18 @@ Technically yes, with `JOIST_AUTH_TOKEN` or a `session.json` copied from your co
 **Will my Joist account get banned?**
 Requests carry Chrome's fingerprint and go out one at a time, as you would click. Nobody can promise a platform never acts. Keep to your normal use.
 
-**Can I use it for my contracting business or for my clients?**
-No. The license allows noncommercial use only, and running your own business counts as business use. For a business, a team or client work, use [Cotlet](https://cotlet.dev) or write to [contact@cotlet.dev](mailto:contact@cotlet.dev).
-
-**Can I use the code for anything I like?**
-No. The source is public, but the license allows noncommercial use only: no business use.
+**Can I change the code or offer it to my clients?**
+You may change it and use it in your own business. You may not offer it to others as a hosted or managed service. For client work, use [Cotlet](https://cotlet.dev?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=faq-clients) or write to [contact@cotlet.dev](mailto:contact@cotlet.dev).
 
 **A tool broke or I need another one.**
 [Open an issue](https://github.com/cotletdev/joist-api-mcp-server/issues) with the tool name and the error message.
 
 ## License
 
-[PolyForm Noncommercial License 1.0.0](https://github.com/cotletdev/joist-api-mcp-server/blob/main/LICENSE). In short:
+[Elastic License 2.0](https://github.com/cotletdev/joist-api-mcp-server/blob/main/LICENSE). In short:
 
-- **Allowed:** noncommercial use: you, for your own personal purposes with your own Joist account, or a charity, school, public research or government body. Changing the code, and sharing it under the same license.
-- **Not allowed:** any commercial use, your own business included; client work; selling or offering it, or a service built on it.
+- **Allowed:** using it for yourself and in your own business, free. Changing the code and sharing it under the same license.
+- **Not allowed:** offering it to others as a hosted or managed service, removing the license notices, getting around its limits.
 
 ---
 
@@ -438,4 +498,4 @@ No. The source is public, but the license allows noncommercial use only: no busi
   </a>
 </p>
 
-Maintained by [Cotlet](https://cotlet.dev) ([@cotletdev](https://x.com/cotletdev)). Joist is a trademark of its owner. This project is unofficial and not affiliated with, endorsed or sponsored by Joist.
+Maintained by [Cotlet](https://cotlet.dev?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=footer) ([@cotletdev](https://x.com/cotletdev)). Joist is a trademark of its owner. This project is unofficial and not affiliated with, endorsed or sponsored by Joist.
