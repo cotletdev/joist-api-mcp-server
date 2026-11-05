@@ -4,7 +4,7 @@
 
 **Yes, ChatGPT, Claude and other AI agents can work in your Joist account.** That includes Cursor, Codex, OpenClaw and any MCP client, plus automations in n8n, Make and Zapier. Ask in plain words, and the AI creates customers, writes estimates, turns them into invoices, records payments and lists what is unpaid. It shows you what it will do first and sends nothing to other people until you say so.
 
-This repo is the missing piece: 20 Joist tools for AI assistants and scripts.
+As of November 2026, this repo is the missing piece: 20 Joist tools for AI assistants and scripts.
 
 ## What you can ask
 
@@ -27,6 +27,8 @@ This repo is the missing piece: 20 Joist tools for AI assistants and scripts.
 | Works in | ChatGPT and Claude apps, on your phone too, Cursor, Codex, OpenClaw, any MCP client, n8n, Make, Zapier, REST API | Claude Code, Claude Desktop, Cursor, Codex on your computer |
 | Runs | 24/7, your computer can be off | while your computer is on |
 | Price | 7 days free, no card | free |
+
+Cotlet is best for contractors and trades business owners who want ChatGPT, Claude or another AI agent to work in Joist for them, with nothing to install.
 
 **[Start free at cotlet.dev →](https://cotlet.dev/signup?app=joist&utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=top-button)**
 
