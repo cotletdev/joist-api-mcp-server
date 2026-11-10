@@ -48,6 +48,8 @@ Free for your own use, your own business included ([license](#license)).
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-141318)](#requirements)
 [![License: Elastic 2.0](https://img.shields.io/badge/license-Elastic%202.0-141318)](https://github.com/cotletdev/joist-api-mcp-server/blob/main/LICENSE)
 
+Also on Odel: https://odel.app/modules/cotlet/joist
+
 ```bash
 uv tool install joist-api-mcp                  # or: pip install joist-api-mcp
 joist-mcp connect                                  # reads your Joist session from Chrome
