@@ -80,7 +80,6 @@ Limits: one call runs up to 90 seconds, writes wait for your consent, payments a
 ## Find it on Cotlet.dev
 
 - [Joist MCP server on Cotlet.dev](https://cotlet.dev/integrations/joist-api-mcp-server?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=old-repo)
-- [Does Joist have an API or MCP server?](https://cotlet.dev/api-status/joist?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=old-repo)
 
 ## Run it yourself
 
