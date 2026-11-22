@@ -1,6 +1,6 @@
 [project]
 name = "joist-api-mcp"
-version = "1.0.3"
+version = "1.0.4"
 description = "Self-hosted Joist API and MCP server on your own Chrome session. Use Joist from Claude, Cursor, Codex or any MCP client or AI agent."
 readme = "README.md"
 license = "Elastic-2.0"

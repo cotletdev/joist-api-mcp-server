@@ -1,4 +1,4 @@
-# Joist API and MCP server: connect Joist to ChatGPT and Claude
+# Joist API integration and MCP server: connect Joist to ChatGPT and Claude
 
 <!-- mcp-name: dev.cotlet/joist -->
 
@@ -24,13 +24,63 @@ As of November 2026, this repo is the missing piece: 20 Joist tools for AI assis
 |---|---|---|
 | For | contractors and trades business owners | developers |
 | Setup | sign in to Joist once, about 5 minutes, nothing to install | Python and a terminal |
-| Works in | ChatGPT and Claude apps, on your phone too, Cursor, Codex, OpenClaw, any MCP client, n8n, Make, Zapier, REST API | Claude Code, Claude Desktop, Cursor, Codex on your computer |
+| Works in | ChatGPT and Claude apps, on your phone too, Cursor, Codex, OpenClaw, any MCP client, n8n, Make, Zapier, your own API endpoints (Custom API) | Claude Code, Claude Desktop, Cursor, Codex on your computer |
 | Runs | 24/7, your computer can be off | while your computer is on |
 | Price | 7 days free, no card | free |
 
 Cotlet is best for contractors and trades business owners who want ChatGPT, Claude or another AI agent to work in Joist for them, with nothing to install.
 
 **[Start free at cotlet.dev →](https://cotlet.dev/signup?app=joist&utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=top-button)**
+
+## What contractors ask their AI to do in Joist
+
+| Job | Ask your AI | Make it repeat |
+|---|---|---|
+| Estimates from a description | "Write an estimate for repainting a 3-bedroom interior from my notes and save it as a draft. Show me first." | When a job comes in |
+| Invoices from notes or photos | "Turn these job notes into invoice line items for the Smith job and save the invoice as a draft." | After each job |
+| Unpaid invoices | "List unpaid invoices older than 14 days, total them per client and draft a reminder for each. Send nothing yet." | Weekly |
+| Estimate follow-ups | "Which estimates sent this month have no answer? Draft a short follow-up for each." | Weekly |
+| Find everything for one client | "Find every estimate and invoice for 42 Oak Street, newest first." | When a client calls |
+| QuickBooks gaps | "List this month's Joist invoices that are not in QuickBooks, including the ones still marked Draft." | Before month end |
+| Full export with line items | "Export all estimates and invoices from this year with their line items to a spreadsheet." | Monthly |
+| Saved items export | "Export my saved items and prices to a spreadsheet." | When prices change |
+| Clients from a spreadsheet | "Import the clients in this spreadsheet into Joist. Show me before you save." | Once |
+| Estimate versions | "Save a copy of this estimate's lines before I change it, so I can compare later." | Before each change |
+| Leaving Joist | "Download all clients, items, estimates and invoices before I move to another app." | Once |
+
+Your AI asks you before it sends an estimate or invoice, or changes anything. Payments stay in your hands: Cotlet refuses payments.
+
+## Your own Joist API, built with Cotlet (hosted)
+
+Joist gives you no public API. With Cotlet you build your own: your AI does the job once in your Cloud Browser, you save it as an endpoint, and you call it from Google Sheets, GoHighLevel, QuickBooks, n8n, Make, Zapier, your own code.
+
+Examples you can build in a few minutes (none of them exists until you build it):
+
+| Endpoint you build | What it returns or does |
+|---|---|
+| `unpaid-invoices` | client, invoice number, total, amount due and days overdue |
+| `open-estimates` | estimates with no answer, with client, total and date sent |
+| `client-history` | every estimate and invoice for a client or address |
+| `invoices-export` | invoices with line items for a period |
+| `estimates-export` | estimates with line items for a period |
+| `saved-items` | saved items with price and description |
+| `not-in-quickbooks` | invoices of a period that are still Draft or not synced |
+| `draft-estimate` | saves a draft estimate from the lines you send (writes only after you allow it) |
+| `add-client` | adds a client with name, phone, email and address (writes only after you allow it) |
+
+Call it with your Cotlet API key, JSON in and JSON out:
+
+```bash
+curl -X POST https://cotlet.dev/api/v1/custom/unpaid-invoices \
+  -H "Authorization: Bearer $COTLET_API_KEY" -H "Content-Type: application/json" -d '{}'
+```
+
+Limits: one call runs up to 90 seconds, writes wait for your consent, payments are blocked. Start here: https://cotlet.dev/app/custom-api/new?app=joist
+
+## Find it on Cotlet.dev
+
+- [Joist MCP server on Cotlet.dev](https://cotlet.dev/integrations/joist-api-mcp-server?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=old-repo)
+- [Does Joist have an API or MCP server?](https://cotlet.dev/api-status/joist?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=old-repo)
 
 ## Run it yourself
 
@@ -39,7 +89,7 @@ A **Joist API** and a **Joist MCP server** you run on your own computer, in Pyth
 Joist has no public API, no webhooks and no official MCP server. Its only link out is QuickBooks Sync on Joist Pro, which copies estimates and invoices one way, once a night, without payments. This repo gives you:
 
 - **MCP server** for Claude Code, Claude Desktop, Cursor, Codex and any MCP client, over stdio or HTTP. [Setup](#mcp-server)
-- **REST API** on `http://127.0.0.1:8787/api/v1/joist`, with OpenAPI docs at `/docs`. [Setup](#rest-api)
+- **REST API** on `http://127.0.0.1:8787/api/v1/joist`, with OpenAPI docs at `/docs`. [Setup](#rest-api-local-this-repo)
 - **Python**: `call("list_invoices", view="overdue")`, plus 9 ready scripts in [`examples/`](https://github.com/cotletdev/joist-api-mcp-server/blob/main/examples/).
 
 Free for your own use, your own business included ([license](#license)).
@@ -65,7 +115,7 @@ claude mcp add joist -- uvx joist-api-mcp mcp
 - [Install](#install)
 - [Connect your Chrome](#connect-your-chrome)
 - [MCP server](#mcp-server)
-- [REST API](#rest-api)
+- [REST API](#rest-api-local-this-repo)
 - [Python and the example scripts](#python-and-the-example-scripts)
 - [All 20 tools](#all-20-tools)
 - [Configuration](#configuration)
@@ -76,6 +126,46 @@ claude mcp add joist -- uvx joist-api-mcp mcp
 - [License](#license)
 
 ## Questions from Joist users
+
+**Does Joist connect to ChatGPT or Claude?**
+
+Not from Joist. Its own AI tools work inside Joist. With Cotlet, ChatGPT and Claude work in your own Joist account and read your estimates, invoices and clients.
+
+**Is there a Joist app in Zapier or Make?**
+
+No. Joist has no Zapier app and no public API. With Cotlet you build your own Joist endpoints, such as `unpaid-invoices` or `invoices-export`, and call them from Zapier, Make or n8n.
+
+**How do I connect Joist to GoHighLevel?**
+
+Call your own `add-client` or `draft-estimate` endpoint from a GoHighLevel workflow, so a new lead becomes a Joist client or a draft estimate without retyping.
+
+**Why are some Joist invoices missing in QuickBooks?**
+
+Invoices sent as a PDF can stay marked Draft and then do not sync. Your AI lists the invoices of a month that are still Draft or missing in QuickBooks, so you fix them in one go.
+
+**How do I export all Joist estimates and invoices with line items?**
+
+Joist's own export is a monthly CSV without line items. Your AI opens each estimate and invoice and builds one spreadsheet with every line, or your `invoices-export` endpoint does it on a schedule.
+
+**Can ChatGPT write a full Joist estimate from my description?**
+
+Yes. Describe the job or paste your notes, and your AI saves a draft estimate with line items. You check it and send it from Joist.
+
+**Can an AI chase my unpaid Joist invoices?**
+
+Your AI lists the unpaid invoices and drafts a message for each client, and sends nothing until you say yes.
+
+**Can AI find all estimates for one client when Joist search is weak?**
+
+Yes. It looks through your estimates and invoices and lists everything for the client or address you name.
+
+**How do I move everything from Joist to another app?**
+
+Your AI downloads clients, saved items, estimates and invoices with line items as spreadsheets, ready to import into the next app.
+
+**Is Cotlet affiliated with Joist?**
+
+No. Cotlet is independent and not affiliated with Joist.
 
 **Does Joist have an API?**
 No. Joist publishes no API, developer docs or webhooks (checked 26 Oct 2026). QuickBooks Sync on Joist Pro copies issued estimates and invoices to QuickBooks Online once a night, one way and without payments, and the web app exports a monthly CSV without line items. This repo and [Cotlet](https://cotlet.dev/integrations/joist-api-mcp-server?utm_source=github&utm_medium=readme&utm_campaign=joist&utm_content=faq-api) give you 20 Joist tools as a REST API and an MCP server.
@@ -279,7 +369,7 @@ Then ask your agent things like:
 >
 > *What did I take in last month, and how much sales tax did I collect?*
 
-## REST API
+## REST API (local, this repo)
 
 ```bash
 joist-mcp serve                    # http://127.0.0.1:8787, MCP at /mcp, docs at /docs
@@ -446,7 +536,7 @@ The REST API answers `{"error": "<code>", "message": "..."}`. The MCP server ret
 | Joist session | your Chrome, saved in a local file | your own Cloud Browser in the EU, profile encrypted with AES-256-GCM |
 | When Joist changes its web app | `git pull` once we have fixed it | fixed for you, every tool tested daily |
 | Approvals | your MCP client asks per call | estimate and invoice email and recorded payments wait for your OK, switchable per tool |
-| Works with | MCP clients on your machine, local scripts | Claude.ai and ChatGPT connectors, n8n, Make, Zapier, any HTTP client |
+| Works with | MCP clients on your machine, local scripts | Claude.ai and ChatGPT connectors, n8n, Make, Zapier, any HTTP client through your own endpoints (Custom API) |
 | Who may use it | you and your own business | you, teams, businesses, agencies |
 | Price | free | free 7-day trial with 2,000 credits, no card; then one-time packs from $29 for 5,000 credits |
 
